@@ -3,5 +3,9 @@ package com.example.PetBridge.persistance;
 import com.example.PetBridge.model.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AnimalRepo extends JpaRepository <Animal, Long> {
+import java.util.List;
+
+public interface AnimalRepo extends JpaRepository<Animal, Long> {
+
+    List<Animal> findAll();
 }

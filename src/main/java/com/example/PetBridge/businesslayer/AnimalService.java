@@ -19,6 +19,10 @@ public class AnimalService {
         return animalRepository.save(animal);
     }
 
+    public List<Animal> findAllAnimals() {
+        return animalRepository.findAll();
+    }
+
     // Match animals to user's preferences
     public List<Animal> matchAnimals(User user) {
         return animalRepository.findAll().stream()
