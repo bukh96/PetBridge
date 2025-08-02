@@ -3,6 +3,7 @@ package com.example.PetBridge.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Match {
@@ -16,4 +17,6 @@ public class Match {
     private Animal animal;
 
     private LocalDateTime matchedAt;
+
+
 }
