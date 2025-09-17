@@ -4,13 +4,16 @@ import lombok.*;
 
 @Entity
 @Data
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class Animal {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "date")
     private String species; // e.g., dog, cat
     private String breed;
     private int age;
@@ -19,5 +22,6 @@ public class Animal {
     private int activity;
     private boolean goodWithKids;
     private boolean goodWithPets;
+    private String photoUrl;
 
 }

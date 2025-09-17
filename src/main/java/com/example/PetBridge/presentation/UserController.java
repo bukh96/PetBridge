@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -32,9 +31,9 @@ public class UserController {
     @GetMapping("/{id}/match")
     public List <Animal> getMatches(@PathVariable Long id) {
         return userService.findById(id)
-                .map(animalService::matchAnimals)
+                .map(user -> animalService.findMatchingAnimalsForUser(user))
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        
+
     }
 
 

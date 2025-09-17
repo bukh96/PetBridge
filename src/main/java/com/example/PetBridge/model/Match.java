@@ -3,18 +3,22 @@ package com.example.PetBridge.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 public class Match {
-    @Id @GeneratedValue
+    //TODO for production, difficulty architecture...
+    @Id
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
     private User user;
 
+
     @ManyToOne
     private Animal animal;
+
+    private String status;
 
     private LocalDateTime matchedAt;
 
