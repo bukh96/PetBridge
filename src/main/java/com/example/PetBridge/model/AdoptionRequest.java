@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Match {
+public class AdoptionRequest {
     //TODO for production, difficulty architecture...
     @Id
     @GeneratedValue

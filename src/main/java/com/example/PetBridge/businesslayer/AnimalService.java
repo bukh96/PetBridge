@@ -1,13 +1,17 @@
 // Service layer for User entity operations
 package com.example.PetBridge.businesslayer;
 
+import com.example.PetBridge.dto.AnimalDTO;
 import com.example.PetBridge.model.Animal;
 import com.example.PetBridge.model.User;
 import com.example.PetBridge.persistance.AnimalRepo;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,12 +20,27 @@ public class AnimalService {
     private final AnimalRepo animalRepository;
     private final User user;
 
-    public Animal save(Animal animalDTO) {
-        return animalRepository.save(animalDTO);
+
+    public List<Animal> findAll() {
+        return animalRepository.findAll();
     }
 
-    public List<Animal> findAllAnimals() {
-        return animalRepository.findAll();
+    public Animal create(AnimalDTO dto) {
+        Animal animal = new Animal();
+        animal.setName(dto.getName());
+        animal.setAge(dto.getAge());
+        animal.setGender(dto.getGender());
+        animal.setBreed(dto.getBreed());
+        animal.setActivity(dto.getActivity());
+        animal.setGoodWithKids(dto.isGoodWithKids());
+        animal.setSpecies(dto.getSpecies());
+        animal.setGoodWithPets(dto.isGoodWithPets());
+        animal.setPhotoUrl(dto.getPhotoUrl());
+        animal.setTemperament(dto.getTemperament());
+        animal.setSterilization(dto.isSterilization());
+        animal.setHousing(dto.getHousing());
+        return animalRepository.save(animal);
+
     }
 
     public List<Animal> findMatchingAnimalsForUser(User user) {return animalRepository.findByUserId(this.user.getId());}
@@ -75,5 +94,31 @@ public class AnimalService {
             case "home" -> temperament.equals("calm");
             default -> true;
         };
+    }
+
+
+    public  Optional<Animal> findById(Long id) {
+        return animalRepository.findById(id);
+    }
+
+    public Animal update(Long id, @Valid AnimalDTO dto) {
+        Animal animal = animalRepository.findById(id).orElseThrow(() -> new RuntimeException("Animal not found"));
+        animal.setName(dto.getName());
+        animal.setAge(dto.getAge());
+        animal.setGender(dto.getGender());
+        animal.setBreed(dto.getBreed());
+        animal.setActivity(dto.getActivity());
+        animal.setGoodWithKids(dto.isGoodWithKids());
+        animal.setSpecies(dto.getSpecies());
+        animal.setGoodWithPets(dto.isGoodWithPets());
+        animal.setPhotoUrl(dto.getPhotoUrl());
+        animal.setTemperament(dto.getTemperament());
+        animal.setSterilization(dto.isSterilization());
+        animal.setHousing(dto.getHousing());
+        return animalRepository.save(animal);
+    }
+
+    public void delete(Long id) {
+        animalRepository.deleteById(id);
     }
 }

@@ -17,11 +17,13 @@ public class Animal {
     private String species; // e.g., dog, cat
     private String breed;
     private int age;
+    private boolean sterilization;
     private String gender;
     private String temperament; // e.g., calm, playful, protective
     private int activity;
     private boolean goodWithKids;
     private boolean goodWithPets;
     private String photoUrl;
+    private String housing;
 
 }

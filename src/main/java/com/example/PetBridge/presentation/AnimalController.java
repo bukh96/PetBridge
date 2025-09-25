@@ -6,6 +6,7 @@ import com.example.PetBridge.model.Animal;
 import com.example.PetBridge.businesslayer.AnimalService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,18 +26,30 @@ public class AnimalController {
 
     @Operation(summary = "Create new animal", description = "Adds a new animal to the system with compatibility attributes")
     @PostMapping
-    public Animal createAnimal(@RequestBody Animal animalDTO) {
-        return animalService.save(animalDTO);
+    public AnimalDTO create(@RequestBody  @Valid AnimalDTO animalDTO) {
+        return AnimalDTO.fromEntity(animalService.create(animalDTO));
     }
 
 
     @GetMapping
-    public ResponseEntity<List<Animal>> getAllAnimals() {
-        if (animalService.findAllAnimals().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } else {
-            return ResponseEntity.ok(animalService.findAllAnimals());
-        }
+    public List<AnimalDTO> getAll() {
+        return animalService.findAll().stream().map(AnimalDTO::fromEntity).toList();
+    }
+
+    @GetMapping("/{id}")
+    public AnimalDTO getById(@PathVariable Long id) {
+        return animalService.findById(id).map(AnimalDTO::fromEntity)
+                .orElseThrow(() -> new RuntimeException("Animal not found"));
+    }
+
+    @PutMapping("/{id}")
+    public AnimalDTO update(@PathVariable Long id, @RequestBody @Valid AnimalDTO dto) {
+        return AnimalDTO.fromEntity(animalService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        animalService.delete(id);
     }
 
     @GetMapping("/{id}/match")

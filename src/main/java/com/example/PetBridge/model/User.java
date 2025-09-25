@@ -13,7 +13,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String email;
     private int age;
+    private String housing;
     private int lifestyle; // e.g., active, home, mixed (to do scale in UI "how much you active from 1 to 10 where 1-3 inactive, 4-7 mixed, 7-10 active)
     private String experience; // e.g., had (has) pets? beginner, intermediate, expert
     private boolean hasKids;

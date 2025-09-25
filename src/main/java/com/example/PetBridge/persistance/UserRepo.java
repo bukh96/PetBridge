@@ -9,4 +9,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     List<User> findAll();
 
+
 }

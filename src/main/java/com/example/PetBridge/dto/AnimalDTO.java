@@ -14,15 +14,17 @@ public class AnimalDTO {
     private String breed;
     private String temperament; // e.g., calm, playful, protective
     private int activity;
+    private boolean sterilization;
     private boolean goodWithKids;
     private boolean goodWithPets;
+    private String housing;
     
 
     public AnimalDTO() {
     }
 
 
-    public AnimalDTO(Long id, String name, String species, int age, String breed, String temperament, String photoUrl, int activity, String gender, boolean goodWithKids, boolean goodWithPets) {
+    public AnimalDTO(Long id, String name, String species, int age, String breed, String temperament, String photoUrl, int activity, String gender, boolean sterilization, boolean goodWithKids, boolean goodWithPets, String housing) {
         this.id = id;
         this.name = name;
         this.species = species;
@@ -30,8 +32,10 @@ public class AnimalDTO {
         this.gender = gender;
         this.photoUrl = photoUrl;
         this.activity = activity;
+        this.sterilization = sterilization;
         this.goodWithKids = goodWithKids;
         this.goodWithPets = goodWithPets;
+        this.housing = housing;
     }
 
 
@@ -123,6 +127,21 @@ public class AnimalDTO {
         this.activity = activity;
     }
 
+    public boolean isSterilization() {
+        return sterilization;
+    }
+
+    public void setSterilization(boolean sterilization) {
+        this.sterilization = sterilization;
+    }
+    public String getHousing() {
+        return housing;
+    }
+
+    public void setHousing(String housing) {
+        this.housing = housing;
+    }
+
     public static AnimalDTO fromEntity(Animal animal) {
         return new AnimalDTO(
                 animal.getId(),
@@ -135,7 +154,10 @@ public class AnimalDTO {
                 animal.getActivity(),
                 animal.getGender(),
                 animal.isGoodWithKids(),
-                animal.isGoodWithPets()
+                animal.isGoodWithPets(),
+                animal.isSterilization(),
+                animal.getHousing()
         );
     }
+
 }
